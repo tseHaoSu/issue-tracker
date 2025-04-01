@@ -1,5 +1,8 @@
 "use client";
 
+import ErrorMessage from "@/app/components/ErrorMessage";
+import { createIssueSchema } from "@/app/validationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import axios from "axios";
@@ -8,10 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "@/app/validationSchema";
-import { set, z } from "zod";
-import ErrorMessage from "@/app/components/ErrorMessage";
+import { z } from "zod";
 
 //infer the type based on the schema
 type IssueForm = z.infer<typeof createIssueSchema>;
@@ -28,6 +28,17 @@ const NewIssuePage = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch {
+      setIsSubmitting(false);
+      setError("Failed to create issue");
+    }
+  });
   return (
     <div className="max-w-xl">
       {error && (
@@ -38,19 +49,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="max-w-xl space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setIsSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch {
-            setIsSubmitting(false);
-            setError("Failed to create issue");
-          }
-        })}
-      >
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root
           placeholder="Issue Name"
           {...register("title")}
