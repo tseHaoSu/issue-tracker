@@ -1,4 +1,4 @@
-import { Table } from "@radix-ui/themes";
+import { Heading, Table } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueAction from "./IssueAction";
@@ -8,6 +8,9 @@ const LoadingIssuesPage = () => {
   return (
     <div className="flex flex-col space-y-10">
       <IssueAction />
+      <div className="mb-3">
+        <Heading>Issues Table</Heading>
+      </div>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
