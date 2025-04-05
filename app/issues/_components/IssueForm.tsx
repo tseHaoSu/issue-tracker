@@ -3,6 +3,7 @@
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { IssueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue } from "@prisma/client";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import axios from "axios";
@@ -11,12 +12,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import dynamic from "next/dynamic";
-import { Issue } from "@prisma/client";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
+import SimpleMDE from "react-simplemde-editor";
 
 //infer the type based on the schema
 type IssueFormData = z.infer<typeof IssueSchema>;
@@ -37,7 +33,6 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-
       if (issue) {
         await axios.patch(`/api/issues/${issue.id}`, data);
         router.push(`/issues/${issue.id}`);
