@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const body = await request.json();
   const validation = IssueSchema.safeParse(body);
@@ -16,10 +16,12 @@ export async function PATCH(
     });
   }
 
+  const resolvedParams = await params;
+
   //find the issue by id
   const issue = await prisma.issue.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: parseInt(resolvedParams.id),
     },
   });
 
@@ -30,7 +32,7 @@ export async function PATCH(
   //update issue
   const updatedIssue = await prisma.issue.update({
     where: {
-      id: parseInt(params.id),
+      id: parseInt(resolvedParams.id),
     },
     data: {
       title: body.title,

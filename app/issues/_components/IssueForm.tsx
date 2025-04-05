@@ -33,18 +33,21 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  //handle from submit,  if have issue update else create new issue
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
+
       if (issue) {
         await axios.patch(`/api/issues/${issue.id}`, data);
         router.push(`/issues/${issue.id}`);
-        return;
+      } else {
+        await axios.post("/api/issues", data);
+        router.push("/issues");
       }
-      await axios.post("/api/issues", data);
-      router.push("/issues");
-    } catch {
+      router.refresh();
+    } catch (error) {
+      console.error(error);
       setIsSubmitting(false);
       setError("Failed to create issue");
     }

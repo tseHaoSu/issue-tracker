@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 //customize font
-export const inter = Inter({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
