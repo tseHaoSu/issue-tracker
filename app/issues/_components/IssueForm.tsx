@@ -1,7 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
-import { IssueSchema } from "@/app/validationSchema";
+import { IssueSchema } from "@/app/utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
