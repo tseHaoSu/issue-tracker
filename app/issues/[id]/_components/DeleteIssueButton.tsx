@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 
 interface DeleteIssueButtonProps {
   issueId: number;
@@ -15,7 +15,6 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
   const deleteIssue = async () => {
     try {
       setIsDeleting(true);
@@ -36,7 +35,7 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
           <Button color="red" disabled={isDeleting}>
             <Flex align="center" gap="2">
               <Cross2Icon />
-              <span>{isDeleting ? "Deleting..." : "Delete Issue"}</span>
+              <span>{isDeleting ? <Spinner /> : "Delete Issue"}</span>
             </Flex>
           </Button>
         </AlertDialog.Trigger>

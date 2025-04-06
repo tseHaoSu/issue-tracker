@@ -15,6 +15,9 @@ const IssuesPage = async () => {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Issue ID
+            </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Status
@@ -27,6 +30,9 @@ const IssuesPage = async () => {
         <Table.Body>
           {issues.map((issue) => (
             <Table.Row key={issue.id}>
+              <Table.Cell className="hidden md:table-cell">
+                {issue.id}
+              </Table.Cell>
               <Table.Cell>
                 <Link
                   href={`/issues/${issue.id}`}
