@@ -30,7 +30,7 @@ const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 // Force revalidation on every request
 //or export const revalidate = 30; // Revalidate every 30 seconds
 
