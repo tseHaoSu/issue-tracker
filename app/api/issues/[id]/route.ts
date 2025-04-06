@@ -39,15 +39,16 @@ export async function PATCH(
   return NextResponse.json(updatedIssue);
 }
 
+// No need to parse request body for DELETE
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // No need to parse request body for DELETE
+    const { id } = await params;
     const issue = await prisma.issue.findUnique({
       where: {
-        id: parseInt(params.id),
+        id: parseInt(id),
       },
     });
     if (!issue) {
@@ -55,10 +56,9 @@ export async function DELETE(
     }
     await prisma.issue.delete({
       where: {
-        id: parseInt(params.id),
+        id: parseInt(id),
       },
     });
-
     return NextResponse.json({}, { status: 200 });
   } catch (error) {
     console.error("Failed to delete issue:", error);
