@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import "./theme-config.css";
+import AuthProvider from "./components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,15 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.variable} suppressHydrationWarning>
-        <Theme
-          accentColor="cyan"
-          grayColor="gray"
-          panelBackground="solid"
-          scaling="100%"
-        >
-          <NavBar />
-          <main className="p-5">{children}</main>
-        </Theme>
+        <AuthProvider>
+          <Theme
+            accentColor="cyan"
+            grayColor="gray"
+            panelBackground="solid"
+            scaling="100%"
+          >
+            <NavBar />
+            <main className="p-5">{children}</main>
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   );
