@@ -10,13 +10,11 @@ const EditIssuePage = async ({
 }) => {
   // Resolve the params promise
   const resolvedParams = await params;
-
   const issue = await prisma.issue.findUnique({
     where: {
       id: parseInt(resolvedParams.id),
     },
   });
-
   if (!issue) notFound();
   return <IssueForm issue={issue} />;
 };

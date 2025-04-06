@@ -1,8 +1,6 @@
-"use client";
-
-import { Button } from '@radix-ui/themes';
-import Link from 'next/link';
-import React from 'react'
+import { Button } from "@radix-ui/themes";
+import Link from "next/link";
+import React from "react";
 
 const IssueAction = () => {
   return (
@@ -14,6 +12,6 @@ const IssueAction = () => {
       </Button>
     </div>
   );
-}
+};
 
-export default IssueAction
+export default IssueAction;
