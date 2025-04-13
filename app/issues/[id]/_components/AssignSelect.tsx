@@ -1,23 +1,37 @@
+"use client";
+
+import { User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const AssignSelect = () => {
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    staleTime: 60 * 1000,
+    retry: 2,
+  });
+
+  if (isLoading) return <Skeleton />;
+  if (error) return null;
+
   return (
-    <Select.Root defaultValue="1">
-      <Select.Trigger />
+    <Select.Root>
+      <Select.Trigger placeholder="Assign to.." />
       <Select.Content>
         <Select.Group>
           <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="1"> Eastin </Select.Item>
-          <Select.Item value="2">Sam</Select.Item>
-          <Select.Item value="3" >
-            Grape
-          </Select.Item>
-        </Select.Group>
-        <Select.Separator />
-        <Select.Group>
-          <Select.Label>Vegetables</Select.Label>
-          <Select.Item value="carrot">Carrot</Select.Item>
-          <Select.Item value="potato">Potato</Select.Item>
+          {users?.map((user) => (
+            <Select.Item key={user.id} value={user.id}>
+              {user.name}
+            </Select.Item>
+          ))}
         </Select.Group>
       </Select.Content>
     </Select.Root>

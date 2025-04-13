@@ -1,12 +1,13 @@
 import { prisma } from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import AssignSelect from "./_components/AssignSelect";
+import DeleteIssueButton from "./_components/DeleteIssueButton";
 import EditIssueButton from "./_components/EditIssueButton";
 import IssueDetails from "./_components/IssueDetails";
-import DeleteIssueButton from "./_components/DeleteIssueButton";
-import AssignSelect from "./_components/AssignSelect";
 
 const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  
   const { id } = await params;
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(id) },

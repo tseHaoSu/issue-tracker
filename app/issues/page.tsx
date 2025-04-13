@@ -1,4 +1,4 @@
-import { nacbar} from "@/prisma/client";
+import { prisma } from "@/prisma/client";
 import { Heading, Table } from "@radix-ui/themes";
 import IssueBadge from "../components/IssueBadge";
 import Link from "../components/Link";
