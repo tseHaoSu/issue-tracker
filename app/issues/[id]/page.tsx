@@ -21,7 +21,7 @@ const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <IssueDetails issue={issue} />
       </Box>
       <Box>
-        <Flex direction="column" gap="5" >
+        <Flex direction="column" gap="5">
           <EditIssueButton issueId={issue.id} />
           <DeleteIssueButton issueId={issue.id} />
         </Flex>

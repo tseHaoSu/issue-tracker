@@ -27,7 +27,6 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
       setError(true);
     }
   };
-
   return (
     <>
       <AlertDialog.Root>
@@ -39,14 +38,12 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
             </Flex>
           </Button>
         </AlertDialog.Trigger>
-
         <AlertDialog.Content>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
           <AlertDialog.Description>
             Are you sure you want to delete this issue? This action cannot be
             undone.
           </AlertDialog.Description>
-
           <Flex mt="4" justify="end" gap="3">
             <AlertDialog.Cancel>
               <Button variant="soft" color="gray">
@@ -61,7 +58,6 @@ const DeleteIssueButton = ({ issueId }: DeleteIssueButtonProps) => {
           </Flex>
         </AlertDialog.Content>
       </AlertDialog.Root>
-
       {/* Error Dialog */}
       <AlertDialog.Root open={error} onOpenChange={setError}>
         <AlertDialog.Content>

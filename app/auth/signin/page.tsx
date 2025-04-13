@@ -21,7 +21,6 @@ export default function SignIn() {
         password,
         redirect: false,
       });
-
       if (result?.error) {
         setError("Invalid email or password");
       } else {
