@@ -10,7 +10,7 @@ import Dropdown from "./Dropdown";
 const NavBar = () => {
   const currentPath = usePathname();
   const links = [
-    { label: "Dashboad", href: "/" },
+    { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
   ];
   return (

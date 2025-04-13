@@ -12,9 +12,8 @@ export default function ConfirmSignOut() {
   const handleSignOut = async () => {
     setIsLoading(true);
     setError("");
-
     try {
-      await signOut({ redirect: false});
+      await signOut({ redirect: false });
       router.push("/auth/signin");
       setIsLoading(false);
     } catch (error) {

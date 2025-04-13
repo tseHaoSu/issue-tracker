@@ -5,7 +5,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -45,3 +45,5 @@ export const authOptions: NextAuthOptions = {
     signOut: "/auth/signout",
   },
 };
+
+export { authOptions };

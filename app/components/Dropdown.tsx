@@ -1,10 +1,13 @@
-import { Box, DropdownMenu, Button, Avatar } from "@radix-ui/themes";
-import { signOut, useSession } from "next-auth/react";
+import { Avatar, Box, Button, DropdownMenu, Skeleton } from "@radix-ui/themes";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
 
 const Dropdown = () => {
   const { status, data: session } = useSession();
+
+  if(status === "loading") return <Skeleton width="3rem"/>;
+  if(status === "unauthenticated") return null;
+
   return (
     <Box>
       {status === "authenticated" ? (
@@ -26,12 +29,9 @@ const Dropdown = () => {
               {session?.user?.name || "User"}
             </DropdownMenu.Label>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item
-              color="red"
-              onClick={() => signOut({ callbackUrl: "/" })}
-            >
-              Sign Out
-            </DropdownMenu.Item>
+            <Link href="/auth/signout">
+              <DropdownMenu.Item color="red">Sign Out</DropdownMenu.Item>
+            </Link>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       ) : (

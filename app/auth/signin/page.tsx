@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function SignIn() {
       if (result?.error) {
         setError("Invalid email or password");
       } else {
-        router.push("/"); 
+        router.push("/");
       }
     } catch {
       setError("An error occurred during sign in");
@@ -60,7 +60,6 @@ export default function SignIn() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 value={email}
@@ -76,7 +75,6 @@ export default function SignIn() {
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 value={password}

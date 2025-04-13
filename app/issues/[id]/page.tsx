@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import EditIssueButton from "./_components/EditIssueButton";
 import IssueDetails from "./_components/IssueDetails";
 import DeleteIssueButton from "./_components/DeleteIssueButton";
+import AssignSelect from "./_components/AssignSelect";
 
 const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -22,6 +23,7 @@ const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       </Box>
       <Box>
         <Flex direction="column" gap="5">
+          <AssignSelect/>
           <EditIssueButton issueId={issue.id} />
           <DeleteIssueButton issueId={issue.id} />
         </Flex>
