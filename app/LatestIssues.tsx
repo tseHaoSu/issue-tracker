@@ -12,7 +12,7 @@ const LatestIssues = async () => {
 
   return (
     <Box className="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-      <Box className="p-4 bg-gray-50 border-gray-200">
+      <Box className="p-4">
         <Heading size="4" className="text-gray-800">
           Latest Issues
         </Heading>
