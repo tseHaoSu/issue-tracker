@@ -6,7 +6,7 @@ import DeleteIssueButton from "./_components/DeleteIssueButton";
 import EditIssueButton from "./_components/EditIssueButton";
 import IssueDetails from "./_components/IssueDetails";
 
-const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(id) },
@@ -36,4 +36,4 @@ const IssuesPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 // Force revalidation on every request
 //or export const revalidate = 30; // Revalidate every 30 seconds
 
-export default IssuesPage;
+export default page;

@@ -1,7 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
-import { IssueSchema } from "@/app/utils/validationSchema";
+import { issueSchema } from "@/app/utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
@@ -12,10 +12,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
+
+
+//dynamic import SimpleMDE with the 
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 
 //infer the type based on the schema
-type IssueFormData = z.infer<typeof IssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
@@ -24,7 +30,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(IssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +44,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         router.push(`/issues/${issue.id}`);
       } else {
         await axios.post("/api/issues", data);
-        router.push("/issues");
+        router.push("/issues/list");
       }
       router.refresh();
     } catch (error) {

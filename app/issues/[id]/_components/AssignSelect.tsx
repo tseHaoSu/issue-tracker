@@ -5,6 +5,7 @@ import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
+import toast, { Toaster } from "react-hot-toast";
 
 const AssignSelect = ({ issue }: { issue: Issue }) => {
   const {
@@ -21,28 +22,38 @@ const AssignSelect = ({ issue }: { issue: Issue }) => {
   if (isLoading) return <Skeleton />;
   if (error) return null;
 
+  const assignIssue = (userId: string) => {
+    axios
+      .patch(`/api/issues/${issue.id}`, {
+        assignedToUserId: userId === "unassigned" ? null : userId,
+      })
+      .then(() => toast.success("Issue assigned successfully"))
+      .catch(() => {
+        toast.error("Could not assign issue");
+      });
+  };
+
   return (
-    <Select.Root
-      defaultValue={issue.assignedToUserId || "unassigned"}
-      onValueChange={(userId) =>
-        axios.patch("/api/issues/" + issue.id, {
-          assignedToUserId: userId === "unassigned" ? null : userId,
-        })
-      }
-    >
-      <Select.Trigger />
-      <Select.Content>
-        <Select.Group>
-          <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="unassigned">Unassigned</Select.Item>
-          {users?.map((user) => (
-            <Select.Item key={user.id} value={user.id}>
-              {user.name}
-            </Select.Item>
-          ))}
-        </Select.Group>
-      </Select.Content>
-    </Select.Root>
+    <>
+      <Toaster position="top-center" />
+      <Select.Root
+        defaultValue={issue.assignedToUserId || "unassigned"}
+        onValueChange={assignIssue}
+      >
+        <Select.Trigger />
+        <Select.Content>
+          <Select.Group>
+            <Select.Label>Suggestions</Select.Label>
+            <Select.Item value="unassigned">Unassigned</Select.Item>
+            {users?.map((user) => (
+              <Select.Item key={user.id} value={user.id}>
+                {user.name}
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Content>
+      </Select.Root>
+    </>
   );
 };
 

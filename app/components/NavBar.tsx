@@ -11,7 +11,7 @@ const NavBar = () => {
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Issues", href: "/issues" },
+    { label: "Issues", href: "/issues/list" },
   ];
   return (
     <nav className="border-b border-gray-300 px-4 py-5">
