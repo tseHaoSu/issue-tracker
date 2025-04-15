@@ -1,112 +1,76 @@
 # Issue Tracker
 
-A modern issues tracker
+A robust issue tracking system designed to streamline bug management and enhance team collaboration. Bug Tracker helps development teams efficiently identify, assign, monitor, and resolve application issues throughout the development lifecycle.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js 16.8.0 or later
 - npm, yarn, pnpm, or bun package manager
 
 ### Installation
-
-Clone the repository and install dependencies:
-
 ```bash
 git clone <your-repo-url>
 cd <your-project-name>
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
+npm install # or yarn install
 ```
 
 ### Development Server
-
-Run the development server with hot-reload:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev # or yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application running.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
 ## 🔧 Project Structure
-
 ```
-├── app/                  # Application source directory (App Router)
-│   ├── layout.tsx        # Root layout component
-│   ├── page.tsx          # Home page component
-│   └── globals.css       # Global styles
+├── app/                  # App Router components
+│   ├── issues/           # Issue management routes
+│   ├── dashboard/        # Analytics dashboard
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page
 ├── public/               # Static assets
-├── components/           # Reusable React components
-├── lib/                  # Utility functions and custom hooks
-├── styles/               # Component-specific styles
-├── next.config.js        # Next.js configuration
-└── package.json          # Project dependencies and scripts
+├── components/           # Reusable components
+├── prisma/               # Database schema
+└── lib/                  # Utilities
 ```
 
 ## 🎨 Features
 
-### Fonts
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a modern sans-serif typeface designed by Vercel. The font is automatically optimized and served locally for the best performance and styling consistency.
-
-### App Router
-
-The project utilizes Next.js App Router, which provides:
-
-- File-based routing
-- Layouts and nested layouts
-- Loading states
-- Error handling
-- Server components
-- Data fetching on the server
+- **Issue Management**: Create, edit, and track bugs with custom statuses
+- **Assignment System**: Assign issues to team members with tracking
+- **Filtering & Sorting**: Filter by status, priority, assignee, or tags
+- **Dashboard**: Visual representation of bug metrics and team performance
+- **Priority Levels**: Categorize issues by severity
+- **Comments**: Team discussion within each issue
+- **Notifications**: Status change alerts and deadline reminders
+- **Audit Trail**: Complete issue history tracking
+- **Responsive Design**: Access from any device
+- **Role-Based Access**: Custom permissions by team role
 
 ## 🌐 API Routes
 
-Create API endpoints by adding files to the `app/api` directory:
+API endpoints are available in the `app/api` directory:
 
 ```javascript
-// app/api/hello/route.ts
+// app/api/issues/route.ts
 export async function GET() {
-  return Response.json({ message: "Hello World" });
+  return Response.json({ issues: await fetchIssues() });
 }
 ```
 
 ## 🔄 Environment Variables
 
-Create a `.env.local` file in the root directory to add environment variables:
-
+Create a `.env.local` file in the root directory:
 ```
-DB_CONNECTION_STRING=...
-API_KEY=...
-```
-
-Access them in your code with `process.env.VARIABLE_NAME`.
-
-## 🧪 Testing
-
-This project can be set up with Jest and React Testing Library for testing:
-
-```bash
-npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+DATABASE_URL=...
+NEXTAUTH_SECRET=...
 ```
 
 ## 📦 Deployment
 
-### Vercel
+Deploy easily using Vercel or your preferred hosting service.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
